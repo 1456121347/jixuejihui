@@ -1,10 +1,7 @@
-# organization/models.py
-
 from datetime import datetime
-
 from django.db import models
 
-
+# Create your models here.
 class CityDict(models.Model):
     name = models.CharField('城市',max_length=20)
     desc = models.CharField('描述',max_length=200)
@@ -14,8 +11,13 @@ class CityDict(models.Model):
         verbose_name = '城市'
         verbose_name_plural= verbose_name
 
-
 class CourseOrg(models.Model):
+    ORG_CHOICES = (
+        ("pxjg", u"培训机构"),
+        ("gx", u"高校"),
+        ("gr", u"个人"),
+    )
+    category = models.CharField(max_length=20, choices=ORG_CHOICES, verbose_name=u"机构类别", default="pxjg")
     name = models.CharField('机构名称',max_length=50)
     desc = models.TextField('机构描述')
     click_nums = models.IntegerField('点击数',default=0)
@@ -47,4 +49,3 @@ class Teacher(models.Model):
 
     def __str__(self):
         return "[{0}]的教师: {1}".format(self.org, self.name)
-

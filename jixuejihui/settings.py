@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
 #     验证码   pip install django-simple-captcha
     'captcha',
+    'pure_pagination',
 ]
 CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:5500']  # 配置IP白名单
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
@@ -83,6 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -147,6 +149,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
+
+# 设置文件上传路径
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # 配置邮箱
 EMAIL_HOST = "smtp.qq.com"

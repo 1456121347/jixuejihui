@@ -1,10 +1,14 @@
 from django.urls import path,include,re_path
 
 import xadmin
+from django.views.static import serve
+from jixuejihui.settings import MEDIA_ROOT
 
 from django.views.generic import TemplateView
 # from users.views import user_login
 from users.views import LoginView,logout_view,RegisterView,ActiveUserView,ForgetPwdView,ResetPwdView,ModifyPwdView
+
+from organization.views import OrgView
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
@@ -27,5 +31,7 @@ urlpatterns = [
     re_path('reset/(?P<active_code>.*)/',ResetPwdView.as_view(),name='reset_pwd'),
     # 重置密码
     path('modify_pwd/',ModifyPwdView.as_view(),name='modify_pwd'),
-
+# 机构页面路由
+    path('org_list/',OrgView.as_view(),name='org_list'),
+    re_path('media/(?P<path>.*)',serve,{'document_root':MEDIA_ROOT}),
 ]

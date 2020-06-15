@@ -123,6 +123,7 @@ class RegisterView(View):
     处理激活函数的视图
 '''
 from .models import EmailVerifyRecord
+
 class ActiveUserView(View):
     def get(self,request,active_code):
         #检查邮箱验证记录表中是否存在 active_code
