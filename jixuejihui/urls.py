@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 # from users.views import user_login
 from users.views import LoginView,logout_view,RegisterView,ActiveUserView,ForgetPwdView,ResetPwdView,ModifyPwdView
 
-from organization.views import OrgView
+
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
@@ -31,7 +31,8 @@ urlpatterns = [
     re_path('reset/(?P<active_code>.*)/',ResetPwdView.as_view(),name='reset_pwd'),
     # 重置密码
     path('modify_pwd/',ModifyPwdView.as_view(),name='modify_pwd'),
-# 机构页面路由
-    path('org_list/',OrgView.as_view(),name='org_list'),
+    #处理图片
     re_path('media/(?P<path>.*)',serve,{'document_root':MEDIA_ROOT}),
+
+    path('org/', include('organization.urls', namespace="org")),
 ]

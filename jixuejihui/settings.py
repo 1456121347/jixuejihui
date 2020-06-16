@@ -50,6 +50,14 @@ INSTALLED_APPS = [
     'captcha',
     'pure_pagination',
 ]
+
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 10,
+    'MARGIN_PAGES_DISPLAYED': 2,
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
+
 CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:5500']  # 配置IP白名单
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 CORS_ORIGIN_ALLOW_ALL = False  # 不能允许所有的主机都可以请求你的API
