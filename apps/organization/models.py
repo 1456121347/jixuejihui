@@ -22,7 +22,7 @@ class CourseOrg(models.Model):
     desc = models.TextField('机构描述')
     click_nums = models.IntegerField('点击数',default=0)
     fav_nums = models.IntegerField('收藏数',default=0)
-    students = models.IntegerField("学生数",default=0)
+    students = models.IntegerField("学习人数",default=0)
     course_nums = models.IntegerField("课程数",default=0)
     image = models.ImageField('封面图',upload_to='org/%Y%m',max_length=100)
     address = models.CharField('机构地址',max_length=150,)
@@ -44,6 +44,7 @@ class Teacher(models.Model):
     click_nums = models.IntegerField('点击数',default=0)
     fav_nums = models.IntegerField('收藏数',default=0)
     add_time = models.DateTimeField(default=datetime.now)
+    image = models.ImageField(default='',upload_to="teacher/%Y/%m",verbose_name="头像",max_length=100)
 
     class Meta:
         verbose_name = '教师'
