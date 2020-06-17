@@ -35,9 +35,14 @@ class CourseListView(View):
 class CourseDetailView(View):
     def get(self,request,course_id):
         course = Course.objects.get(id=int(course_id))
+        print(course)
+        # 课程的点击数加1
+        course.click_nums += 1
+        course.save()
+
         context = {
             "course":course,
         }
-        return render(request,'course/course-detail.html')
+        return render(request,'course/course-detail.html',context)
 
 

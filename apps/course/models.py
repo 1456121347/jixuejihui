@@ -22,6 +22,7 @@ class Course(models.Model):
     click_nums = models.IntegerField("点击数",default=0)
     add_time = models.DateTimeField("添加时间",default=datetime.now,)
     course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name="所属的机构", null=True, blank=True)
+    category = models.CharField("课程类别", max_length=20, default="")
     class Meta:
         verbose_name = "课程"
         verbose_name_plural = verbose_name
