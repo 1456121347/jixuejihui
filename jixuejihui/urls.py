@@ -35,4 +35,8 @@ urlpatterns = [
     re_path('media/(?P<path>.*)',serve,{'document_root':MEDIA_ROOT}),
 
     path('org/', include('organization.urls', namespace="org")),
+
+    path('course/',include('course.urls',namespace="course")),
+
+    # path('operation/',include('operation.urls',namespace="operation")),
 ]
