@@ -15,9 +15,9 @@ class BaseSetting(object):
 # 全局修改，固定写法
 class GlobalSettings(object):
     # 修改title
-    site_title = 'ED—online后台管理界面'
+    site_title = '即学即会IT后台管理界面'
     # 修改footer
-    site_footer = '在线教育'
+    site_footer = '2018-2020 在线教育'
     # 收起菜单
     menu_style = 'accordion'
 
