@@ -203,3 +203,8 @@ class ModifyPwdView(View):
             return render(request, 'users/password_reset.html', {"email":email, "modify_form":modify_form})
 
 
+
+class UserinfoView(View):
+    '''用户个人信息'''
+    def get(self,request):
+        return render(request,'users/usercenter-info.html',{})

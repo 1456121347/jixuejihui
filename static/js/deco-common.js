@@ -68,8 +68,8 @@ function search_click(){
     }
     if(type == "course"){
         request_url = "/course/list?keywords="+keywords
-    }else if(type == "teacher"){
-        request_url = "/org/teacher/list?keywords="+keywords
+    }else if(type == "organization"){
+        request_url = "/org/organization/list?keywords="+keywords
     }else if(type == "org"){
         request_url = "/org/list?keywords="+keywords
     }

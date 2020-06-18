@@ -1,4 +1,4 @@
-# operation/adminx.py
+# teacher/adminx.py
 
 import xadmin
 

@@ -33,6 +33,9 @@ class CourseOrg(models.Model):
         verbose_name = '课程机构'
         verbose_name_plural = verbose_name
 
+    def get_teacher_nums(self):
+        return self.teacher_set.all().count()
+
 
 class Teacher(models.Model):
     org = models.ForeignKey(CourseOrg,verbose_name='所属机构',on_delete=models.CASCADE)
@@ -44,6 +47,7 @@ class Teacher(models.Model):
     click_nums = models.IntegerField('点击数',default=0)
     fav_nums = models.IntegerField('收藏数',default=0)
     add_time = models.DateTimeField(default=datetime.now)
+    # teacher_age = models.IntegerField('年龄',default=30)
     image = models.ImageField(default='',upload_to="teacher/%Y/%m",verbose_name="头像",max_length=100)
 
     class Meta:

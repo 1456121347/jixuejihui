@@ -1,4 +1,4 @@
-# operation/models.py
+# teacher/models.py
 
 from datetime import datetime
 

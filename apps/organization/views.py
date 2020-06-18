@@ -50,47 +50,28 @@ class OrgView(View):
 
 
 
-# # 处理我要咨询的请求的视图
-# from .forms import UserAskForm
-# from operation.models import UserAsk
-#
-# class AddUserAskView(View):
-#     '''
-#     添加用户咨询
-#     '''
-#     def post(self,request):
-#         userask_form = UserAskForm(request.POST)
-#         if userask_form.is_valid():
-#             user_ask = UserAsk()
-#             user_ask.name = request.POST.get('name')
-#             user_ask.mobile = request.POST.get('mobile')
-#             user_ask.course_name = request.POST.get('course_name')
-#             user_ask.save()
-
-
 # 处理我要咨询的请求的视图
 from .forms import UserAskForm
 from django.http import HttpResponse
-
-class AddUserAskView(View):
+class UserAskView(View):
     '''
-    添加用户咨询
+    用户咨询
     '''
     def post(self,request):
         userask_form = UserAskForm(request.POST)
         if userask_form.is_valid():
-            userask_form.save(commit=True)
+            user_ask = userask_form.save(commit=True)
+
             return HttpResponse('{"status":"success"}')
         else:
             return HttpResponse('{"status":"fail","msg":"添加失败"}')
 
 
 
-
-
 # org-detail-home
 class OrgDetailHomeView(View):
     def get(self,request,org_id):
+        current_page = 'home'
         course_org = CourseOrg.objects.get(id=int(org_id))
         # 反向查询到课程机构中的所有课程和讲师
         all_courses = course_org.course_set.all()[:4]
@@ -98,6 +79,72 @@ class OrgDetailHomeView(View):
         context = {
             "course_org":course_org,
             "all_courses":all_courses,
-            "all_teacher":all_teacher
+            "all_teacher":all_teacher,
+            'current_page':current_page
         }
         return render(request,'organization/org-detail-homepage.html',context)
+
+# org-detail-course
+class OrgDetailCourseView(View):
+    def get(self,request,org_id):
+        current_page = 'course'
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        # 同过课程机构找到课程,内建的一个变量，找到指向这个字段的外键引用
+        all_courses = course_org.course_set.all()
+        context = {
+            'course_org':course_org,
+            'all_courses':all_courses,
+            'current_page':current_page
+        }
+        return render(request,'organization/org-detail-course.html',context)
+
+
+# org-detail-desc
+class OrgDescDetailView(View):
+    '''机构介绍页'''
+
+    def get(self, request, org_id):
+        current_page = 'desc'
+        # 根据id取到课程机构
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        return render(request, 'organization/org-detail-desc.html', {
+            'course_org': course_org,
+            'current_page': current_page,
+        })
+
+
+'''
+    讲师模块
+'''
+from .models import Teacher
+from course.models import Course
+
+class TeacherListView(View):
+    def get(self,request):
+        all_teachers = Teacher.objects.all()
+        teacher_nums = all_teachers.count()
+
+        try:
+            page = request.GET.get('page',1)
+        except PageNotAnInteger:
+            page = 1
+        p = Paginator(all_teachers,1,request=request)
+
+        teachers = p.page(page)
+
+        context = {
+            "all_teachers":teachers,
+            "teacher_nums":teacher_nums
+        }
+        return render(request,'teacher/teachers-list.html',context)
+
+
+class TeacherDetailView(View):
+    def get(self,request,teacher_id):
+        teacher = Teacher.objects.get(id=int(teacher_id))
+        all_courses = Course.objects.filter(teacher=teacher)
+        context = {
+            "teacher":teacher,
+            "all_courses":all_courses
+        }
+        return render(request,'teacher/teacher-detail.html',context)

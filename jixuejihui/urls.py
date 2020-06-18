@@ -38,5 +38,5 @@ urlpatterns = [
 
     path('course/',include('course.urls',namespace="course")),
 
-    # path('operation/',include('operation.urls',namespace="operation")),
+    # path('teacher/',include('teacher.urls',namespace="teacher")),
 ]
